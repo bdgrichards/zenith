@@ -38,7 +38,9 @@ export default function Home({ APIKey }: props) {
             className="flex justify-center bg-gradient-to-br from-pink-500 to-yellow-500 text-white px-3 py-2 rounded-md self-stretch mt-6 shadow-none hover:shadow-md saturate-100 disabled:saturate-0 transition ease-in-out duration-200"
             disabled={prompt === ""}
             onClick={() => {
-              callOpenAI(prompt);
+              if (!openAILoading) {
+                callOpenAI(prompt);
+              }
             }}
           >
             {openAILoading && (
