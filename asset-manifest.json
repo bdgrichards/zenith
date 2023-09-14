@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/zenith/static/css/main.dd1ba038.css",
-    "main.js": "/zenith/static/js/main.2d6e7fd9.js",
+    "main.css": "/zenith/static/css/main.3d4fe615.css",
+    "main.js": "/zenith/static/js/main.37abd00e.js",
     "static/js/787.0115938e.chunk.js": "/zenith/static/js/787.0115938e.chunk.js",
     "index.html": "/zenith/index.html",
-    "main.dd1ba038.css.map": "/zenith/static/css/main.dd1ba038.css.map",
-    "main.2d6e7fd9.js.map": "/zenith/static/js/main.2d6e7fd9.js.map",
+    "main.3d4fe615.css.map": "/zenith/static/css/main.3d4fe615.css.map",
+    "main.37abd00e.js.map": "/zenith/static/js/main.37abd00e.js.map",
     "787.0115938e.chunk.js.map": "/zenith/static/js/787.0115938e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd1ba038.css",
-    "static/js/main.2d6e7fd9.js"
+    "static/css/main.3d4fe615.css",
+    "static/js/main.37abd00e.js"
   ]
 }
