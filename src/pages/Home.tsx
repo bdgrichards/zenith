@@ -25,17 +25,17 @@ export default function Home({ APIKey }: props) {
             WebkitMaskImage: "-webkit-radial-gradient(white, black)",
           }}
         >
-          <div className="text-sm text-gray-500">Prompt</div>
+          <div className="text-gray-500">Prompt</div>
           <input
             placeholder="Tell me a joke..."
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
           focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
           />
           <button
-            className="flex justify-center bg-gradient-to-br from-pink-500 to-yellow-500 text-white px-3 py-2 rounded-md self-stretch mt-6 text-sm shadow-none hover:shadow-md saturate-100 disabled:saturate-0 transition ease-in-out duration-200"
+            className="flex justify-center bg-gradient-to-br from-pink-500 to-yellow-500 text-white px-3 py-2 rounded-md self-stretch mt-6 shadow-none hover:shadow-md saturate-100 disabled:saturate-0 transition ease-in-out duration-200"
             disabled={prompt === ""}
             onClick={() => {
               callOpenAI(prompt);
@@ -43,7 +43,7 @@ export default function Home({ APIKey }: props) {
           >
             {openAILoading && (
               <svg
-                className="animate-spin mt-0.5 mr-2 h-4 w-4 text-white"
+                className="animate-spin mt-1 mr-2 h-4 w-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ export default function Home({ APIKey }: props) {
           </button>
           {openAIResponse && (
             <div className="w-full">
-              <div className="text-sm text-gray-500 mt-8 w-full text-left">
+              <div className="text-gray-500 mt-8 w-full text-left">
                 Response
               </div>
               <div className="text-left break-words">{openAIResponse}</div>

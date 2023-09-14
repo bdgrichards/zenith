@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <div className="bg-white text-white font-extrabold text-2xl py-2 px-4 flex justify-between items-center shadow-sm">
+    <div className="bg-white text-white font-extrabold text-3xl py-2 px-4 flex justify-between items-center shadow-sm">
       <span className="bg-clip-text text-transparent bg-gradient-to-br from-pink-500 to-yellow-500 transition ease-in-out duration-300 pointer-events-none">
         Zenith.
       </span>
