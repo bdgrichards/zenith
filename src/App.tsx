@@ -1,15 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 function App() {
+  const [APIKey, setAPIKey] = useState<string>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello, world!
-        </p>
-      </header>
+    <div className="text-center h-[100vh] w-[100vw]">
+      {APIKey !== undefined ? (
+        <Home APIKey={APIKey} />
+      ) : (
+        <Login setAPIKey={setAPIKey} />
+      )}
     </div>
   );
 }
