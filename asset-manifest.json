@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/zenith/static/css/main.073c9b0a.css",
-    "main.js": "/zenith/static/js/main.1f3e5c7f.js",
+    "main.css": "/zenith/static/css/main.dd1ba038.css",
+    "main.js": "/zenith/static/js/main.2d6e7fd9.js",
     "static/js/787.0115938e.chunk.js": "/zenith/static/js/787.0115938e.chunk.js",
-    "static/media/logo.svg": "/zenith/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/zenith/index.html",
-    "main.073c9b0a.css.map": "/zenith/static/css/main.073c9b0a.css.map",
-    "main.1f3e5c7f.js.map": "/zenith/static/js/main.1f3e5c7f.js.map",
+    "main.dd1ba038.css.map": "/zenith/static/css/main.dd1ba038.css.map",
+    "main.2d6e7fd9.js.map": "/zenith/static/js/main.2d6e7fd9.js.map",
     "787.0115938e.chunk.js.map": "/zenith/static/js/787.0115938e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.1f3e5c7f.js"
+    "static/css/main.dd1ba038.css",
+    "static/js/main.2d6e7fd9.js"
   ]
 }
