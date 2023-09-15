@@ -18,7 +18,7 @@ export default function Home({ APIKey }: props) {
   return (
     <div className="flex flex-col min-h-full bg-slate-100">
       <Header />
-      <div className="h-full w-full p-8">
+      <div className="h-full w-full p-8 mt-14">
         <div
           className="flex flex-col shadow-md rounded-lg bg-white p-6 mx-auto items-start max-w-md"
           style={{
