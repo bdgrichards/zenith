@@ -1,32 +1,22 @@
+import { useState } from "react";
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
-import { useState } from "react";
-
-declare global {
-  interface Window {
-    loadPyodide: any;
-  }
-}
-
-const runScript = async (code: string) => {
-  const pyodide = await window.loadPyodide({
-    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/",
-  });
-
-  return await pyodide.runPythonAsync(code);
-};
+import useRunPython from "../hooks/useRunPython";
 
 export default function CodeEditor() {
   const [output, setOutput] = useState("(loading...)");
   const [code, setCode] = useState("'a' + 'b'");
 
+  const runScript = useRunPython();
+
   const onButtonClick = async () => {
     const out = await runScript(code);
     setOutput(out);
   };
+
   return (
     <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
       <div className="text-gray-500 mb-2">Run Python Code</div>
