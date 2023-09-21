@@ -9,7 +9,7 @@ export default function Home() {
       <Header />
       <div className="flex flex-col px-8">
         <FileUploader />
-        <AISuggest />
+        {/* <AISuggest /> */}
         <CodeEditor />
       </div>
     </div>

@@ -14,8 +14,12 @@ export default function CodeEditor() {
   const runScript = useRunPython();
 
   const onButtonClick = async () => {
-    const out = await runScript(code);
-    setOutput(out);
+    try {
+      const out = await runScript(code);
+      setOutput(out);
+    } catch (e) {
+      setOutput(`An error occurred: ${e}`);
+    }
   };
 
   return (
@@ -44,7 +48,7 @@ export default function CodeEditor() {
       <PrimaryButton className="self-stretch mt-6" onClick={onButtonClick}>
         Run
       </PrimaryButton>
-      {output && <p className="mt-2">Output: {output}</p>}
+      {output && <p className="mt-2 break-words w-full">Output: {output}</p>}
     </div>
   );
 }
