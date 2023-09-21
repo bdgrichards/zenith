@@ -11,9 +11,11 @@ export default function useRunPython() {
 
   useEffect(() => {
     (async () => {
-      pyodideRef.current = await window.loadPyodide({
+      const pyodide = await window.loadPyodide({
         indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/",
       });
+      await pyodide.loadPackage("pandas");
+      pyodideRef.current = pyodide;
     })();
   }, []);
 

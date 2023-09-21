@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    csvData: string;
+  }
+}
 
 function CsvUploader() {
   const [csvData, setCsvData] = useState<string | null>(null);
+  useEffect(() => {
+    // save csvData to global state so Python can access it
+    window.csvData = csvData ?? "";
+  }, [csvData]);
 
   const handleFileUpload: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -16,9 +26,8 @@ function CsvUploader() {
         const reader = new FileReader();
         reader.onload = (e) => {
           if (e?.target != null) {
-            // Parse the CSV data
             const csvContent = e.target.result;
-            // You can save the CSV data to a variable or state
+            window.csvData = String(csvContent);
             setCsvData(String(csvContent));
           }
         };

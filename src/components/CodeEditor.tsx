@@ -8,7 +8,7 @@ import useRunPython from "../hooks/useRunPython";
 import PrimaryButton from "./PrimaryButton";
 
 export default function CodeEditor() {
-  const [output, setOutput] = useState("(loading...)");
+  const [output, setOutput] = useState("");
   const [code, setCode] = useState("'a' + 'b'");
 
   const runScript = useRunPython();
