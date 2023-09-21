@@ -5,6 +5,7 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import useRunPython from "../hooks/useRunPython";
+import PrimaryButton from "./PrimaryButton";
 
 export default function CodeEditor() {
   const [output, setOutput] = useState("(loading...)");
@@ -40,12 +41,9 @@ export default function CodeEditor() {
           showLineNumbers: true,
         }}
       />
-      <button
-        className="bg-gradient-to-br from-pink-500 to-yellow-500 text-white px-3 py-2 rounded-md self-stretch mt-6 shadow-none hover:shadow-md saturate-100 disabled:saturate-0 transition ease-in-out duration-200"
-        onClick={onButtonClick}
-      >
+      <PrimaryButton className="self-stretch mt-6" onClick={onButtonClick}>
         Run
-      </button>
+      </PrimaryButton>
       {output && <p className="mt-2">Output: {output}</p>}
     </div>
   );
