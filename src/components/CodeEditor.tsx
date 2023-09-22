@@ -22,6 +22,20 @@ export default function CodeEditor() {
     }
   };
 
+  const onDownload = () => {
+    const blob = new Blob([output], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "file.csv";
+    document.body.appendChild(a);
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   return (
     <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
       <div className="text-gray-500 mb-2">Run Python Code</div>
@@ -45,9 +59,14 @@ export default function CodeEditor() {
           showLineNumbers: true,
         }}
       />
-      <PrimaryButton className="self-stretch mt-6" onClick={onButtonClick}>
-        Run
-      </PrimaryButton>
+      <div className="flex mt-6 w-full">
+        <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
+        {output && (
+          <PrimaryButton className="ml-4" onClick={onDownload}>
+            Download CSV
+          </PrimaryButton>
+        )}
+      </div>
       {output && <p className="mt-2 break-words w-full">Output: {output}</p>}
     </div>
   );
