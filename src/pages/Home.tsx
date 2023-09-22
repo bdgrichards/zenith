@@ -5,11 +5,11 @@ import FileUploader from "../components/FileUploader";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-full bg-slate-100">
+    <div className="flex flex-col min-h-full bg-slate-100 pb-20">
       <Header />
       <div className="flex flex-col px-8">
         <FileUploader />
-        {/* <AISuggest /> */}
+        <AISuggest />
         <CodeEditor />
       </div>
     </div>

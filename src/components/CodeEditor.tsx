@@ -6,17 +6,42 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import useRunPython from "../hooks/useRunPython";
 import PrimaryButton from "./PrimaryButton";
+import Papa from "papaparse";
+import CSVTable from "./CSVTable";
 
 export default function CodeEditor() {
+  const defaultCode = `from js import csvData
+import pandas as pd
+from io import StringIO
+
+df = pd.read_csv(StringIO(csvData))
+
+df.to_csv(index=False)
+`;
+
   const [output, setOutput] = useState("");
-  const [code, setCode] = useState("'a' + 'b'");
+  const [code, setCode] = useState(defaultCode);
+  const [outputIsCSV, setOutputIsCSV] = useState(false);
 
   const runScript = useRunPython();
 
   const onButtonClick = async () => {
     try {
       const out = await runScript(code);
-      setOutput(out);
+
+      // check whether output is a valid CSV or not
+      Papa.parse(out, {
+        complete: function (results) {
+          if (results.errors.length === 0) {
+            // it is a CSV
+            setOutputIsCSV(true);
+          } else {
+            // it's not a CSV
+            setOutputIsCSV(false);
+          }
+          setOutput(out);
+        },
+      });
     } catch (e) {
       setOutput(`An error occurred: ${e}`);
     }
@@ -61,13 +86,24 @@ export default function CodeEditor() {
       />
       <div className="flex mt-6 w-full">
         <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
-        {output && (
-          <PrimaryButton className="ml-4" onClick={onDownload}>
-            Download CSV
-          </PrimaryButton>
-        )}
       </div>
-      {output && <p className="mt-2 break-words w-full">Output: {output}</p>}
+      {output && (
+        <div className="">
+          <p className="mt-4 w-full text-gray-500 text-xs">OUTPUT</p>
+          {outputIsCSV ? (
+            <>
+              <div className="max-h-96 mt-2 overflow-auto rounded-lg outline-1 outline outline-gray-100 shadow-md">
+                <CSVTable csvString={output} />
+              </div>
+              <PrimaryButton className="mt-4" onClick={onDownload}>
+                Download CSV
+              </PrimaryButton>
+            </>
+          ) : (
+            <p className="mt-1 break-words w-full">{output}</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import CSVTable from "./CSVTable";
 
 declare global {
   interface Window {
@@ -56,6 +57,11 @@ function CsvUploader() {
           file:cursor-pointer
           "
       />
+      {csvData != null && (
+        <div className="max-h-96 overflow-auto ml-4 mb-4 rounded-lg outline-1 outline outline-gray-100 shadow-md">
+          <CSVTable csvString={csvData} />
+        </div>
+      )}
     </div>
   );
 }
