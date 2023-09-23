@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CSVTable from "./CSVTable";
+import SectionTitle from "./SectionTitle";
 
 declare global {
   interface Window {
@@ -41,6 +42,9 @@ function CsvUploader() {
 
   return (
     <div className="w-full shadow-md rounded-lg bg-white mx-auto max-w-md mt-20 pr-4">
+      <div className="mx-4 mt-4">
+        <SectionTitle title="Step 1" subtitle="Upload CSV File" />
+      </div>
       <input
         type="file"
         accept=".csv"
@@ -58,7 +62,7 @@ function CsvUploader() {
           "
       />
       {csvData != null && (
-        <div className="max-h-96 overflow-auto ml-4 mb-4 rounded-lg outline-1 outline outline-gray-100 shadow-md">
+        <div className="max-h-64 overflow-auto ml-4 mb-4 rounded-lg outline-1 outline outline-gray-100 shadow-md">
           <CSVTable csvString={csvData} />
         </div>
       )}

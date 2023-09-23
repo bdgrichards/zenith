@@ -8,6 +8,7 @@ import useRunPython from "../hooks/useRunPython";
 import PrimaryButton from "./PrimaryButton";
 import Papa from "papaparse";
 import CSVTable from "./CSVTable";
+import SectionTitle from "./SectionTitle";
 
 export default function CodeEditor() {
   const defaultCode = `from js import csvData
@@ -62,48 +63,63 @@ df.to_csv(index=False)
   };
 
   return (
-    <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
-      <div className="text-gray-500 mb-2">Run Python Code</div>
-      <AceEditor
-        height="20vh"
-        width="100%"
-        name="editor"
-        placeholder="Add some Python code..."
-        mode="python"
-        theme="tomorrow"
-        fontSize={16}
-        showGutter={true}
-        showPrintMargin={true}
-        highlightActiveLine={true}
-        wrapEnabled={true}
-        value={code}
-        onChange={setCode}
-        setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-          showLineNumbers: true,
-        }}
-      />
-      <div className="flex mt-6 w-full">
-        <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
+    <>
+      <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
+        <div className="mb-4">
+          <SectionTitle title="Step 3" subtitle="Review Python code" />
+        </div>
+        <AceEditor
+          height="20vh"
+          width="100%"
+          name="editor"
+          placeholder="Add some Python code..."
+          mode="python"
+          theme="tomorrow"
+          fontSize={16}
+          showGutter={true}
+          showPrintMargin={true}
+          highlightActiveLine={true}
+          wrapEnabled={true}
+          value={code}
+          onChange={setCode}
+          setOptions={{
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+            showLineNumbers: true,
+          }}
+        />
+        <div className="flex mt-6 w-full">
+          <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
+        </div>
       </div>
-      {output && (
+      <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
+        <div className="mb-4">
+          <SectionTitle title="Step 4" subtitle="Review Output" />
+        </div>
         <div className="">
-          <p className="mt-4 w-full text-gray-500 text-xs">OUTPUT</p>
-          {outputIsCSV ? (
-            <>
-              <div className="max-h-96 mt-2 overflow-auto rounded-lg outline-1 outline outline-gray-100 shadow-md">
-                <CSVTable csvString={output} />
+          {output ? (
+            outputIsCSV ? (
+              <>
+                <div className="max-h-96 mt-2 overflow-auto rounded-lg outline-1 outline outline-gray-100 shadow-md">
+                  <CSVTable csvString={output} />
+                </div>
+                <PrimaryButton className="mt-4" onClick={onDownload}>
+                  Download CSV
+                </PrimaryButton>
+              </>
+            ) : (
+              <div>
+                <p className="mt-1 text-gray-400">Output:</p>
+                <p className="break-words w-full">{output}</p>
               </div>
-              <PrimaryButton className="mt-4" onClick={onDownload}>
-                Download CSV
-              </PrimaryButton>
-            </>
+            )
           ) : (
-            <p className="mt-1 break-words w-full">{output}</p>
+            <div className="text-sm text-gray-300">
+              Run Python code to generate an output...
+            </div>
           )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,17 +1,21 @@
 import { useState } from "react";
 import useOpenAI from "../hooks/useOpenAI";
 import PrimaryButton from "./PrimaryButton";
+import SectionTitle from "./SectionTitle";
 
 export default function AISuggest() {
   const [APIKey, setAPIKey] = useState<string>();
 
   return (
-    <div className="flex flex-col w-full shadow-md rounded-lg bg-white p-6 mx-auto max-w-md mt-4">
-      {APIKey ? (
-        <GetAISuggestion APIKey={APIKey} />
-      ) : (
-        <GetAPIKey setAPIKey={setAPIKey} />
-      )}
+    <div className="flex flex-col w-full shadow-md rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
+      <SectionTitle title="Step 2" subtitle="Tell AI How to Edit CSV" />
+      <div className="mt-4">
+        {APIKey ? (
+          <GetAISuggestion APIKey={APIKey} />
+        ) : (
+          <GetAPIKey setAPIKey={setAPIKey} />
+        )}
+      </div>
     </div>
   );
 }
