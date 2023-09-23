@@ -9,14 +9,20 @@ import PrimaryButton from "./PrimaryButton";
 import Papa from "papaparse";
 import CSVTable from "./CSVTable";
 import SectionTitle from "./SectionTitle";
+import PageSection from "./PageSection";
 
 export default function CodeEditor() {
-  const defaultCode = `from js import csvData
+  const defaultCode = `# load csv and packages
+from js import csvData
 import pandas as pd
 from io import StringIO
-
 df = pd.read_csv(StringIO(csvData))
 
+# insert your dataframe edits here
+# eg. df.dropna()
+
+
+# output final csv
 df.to_csv(index=False)
 `;
 
@@ -64,7 +70,7 @@ df.to_csv(index=False)
 
   return (
     <>
-      <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
+      <PageSection className="p-4 mt-4">
         <div className="mb-4">
           <SectionTitle title="Step 3" subtitle="Review Python code" />
         </div>
@@ -91,8 +97,8 @@ df.to_csv(index=False)
         <div className="flex mt-6 w-full">
           <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
         </div>
-      </div>
-      <div className="shadow-md w-full rounded-lg bg-white p-4 mx-auto max-w-md mt-4">
+      </PageSection>
+      <PageSection className="p-4 mt-4">
         <div className="mb-4">
           <SectionTitle title="Step 4" subtitle="Review Output" />
         </div>
@@ -119,7 +125,7 @@ df.to_csv(index=False)
             </div>
           )}
         </div>
-      </div>
+      </PageSection>
     </>
   );
 }
