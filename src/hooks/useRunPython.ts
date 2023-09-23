@@ -15,6 +15,7 @@ export default function useRunPython() {
         indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/",
       });
       await pyodide.loadPackage("pandas");
+      await pyodide.loadPackage("numpy");
       pyodideRef.current = pyodide;
     })();
   }, []);

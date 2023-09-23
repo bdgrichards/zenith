@@ -11,23 +11,14 @@ import CSVTable from "./CSVTable";
 import SectionTitle from "./SectionTitle";
 import PageSection from "./PageSection";
 
-export default function CodeEditor() {
-  const defaultCode = `# load csv and packages
-from js import csvData
-import pandas as pd
-from io import StringIO
-df = pd.read_csv(StringIO(csvData))
+interface Props {
+  isCSVUploaded: boolean;
+  code: string;
+  setCode: (newCode: string) => void;
+}
 
-# insert your dataframe edits here
-# eg. df.dropna()
-
-
-# output final csv
-df.to_csv(index=False)
-`;
-
+export default function CodeEditor({ isCSVUploaded, code, setCode }: Props) {
   const [output, setOutput] = useState("");
-  const [code, setCode] = useState(defaultCode);
   const [outputIsCSV, setOutputIsCSV] = useState(false);
 
   const runScript = useRunPython();
@@ -75,7 +66,7 @@ df.to_csv(index=False)
           <SectionTitle title="Step 3" subtitle="Review Python code" />
         </div>
         <AceEditor
-          height="20vh"
+          height="35vh"
           width="100%"
           name="editor"
           placeholder="Add some Python code..."
@@ -95,7 +86,9 @@ df.to_csv(index=False)
           }}
         />
         <div className="flex mt-6 w-full">
-          <PrimaryButton onClick={onButtonClick}>Run</PrimaryButton>
+          <PrimaryButton onClick={onButtonClick} disabled={!isCSVUploaded}>
+            Run
+          </PrimaryButton>
         </div>
       </PageSection>
       <PageSection className="p-4 mt-4">

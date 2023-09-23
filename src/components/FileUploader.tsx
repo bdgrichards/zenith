@@ -9,7 +9,11 @@ declare global {
   }
 }
 
-function CsvUploader() {
+interface Props {
+  setIsCSVUploaded: (value: boolean) => void;
+}
+
+function CsvUploader({ setIsCSVUploaded }: Props) {
   const [csvData, setCsvData] = useState<string | null>(null);
   useEffect(() => {
     // save csvData to global state so Python can access it
@@ -32,6 +36,7 @@ function CsvUploader() {
             const csvContent = e.target.result;
             window.csvData = String(csvContent);
             setCsvData(String(csvContent));
+            setIsCSVUploaded(true);
           }
         };
         reader.readAsText(file);

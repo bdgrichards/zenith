@@ -4,7 +4,12 @@ import PrimaryButton from "./PrimaryButton";
 import SectionTitle from "./SectionTitle";
 import PageSection from "./PageSection";
 
-export default function AISuggest() {
+interface Props {
+  isCSVUploaded: boolean;
+  setCode: (newCode: string) => void;
+}
+
+export default function AISuggest({ isCSVUploaded, setCode }: Props) {
   const [APIKey, setAPIKey] = useState<string>();
 
   return (
@@ -12,16 +17,22 @@ export default function AISuggest() {
       <SectionTitle title="Step 2" subtitle="Tell AI How to Edit CSV" />
       <div className="mt-4">
         {APIKey ? (
-          <GetAISuggestion APIKey={APIKey} />
+          <GetAISuggestion APIKey={APIKey} setCode={setCode} />
         ) : (
-          <GetAPIKey setAPIKey={setAPIKey} />
+          <GetAPIKey setAPIKey={setAPIKey} isCSVUploaded={isCSVUploaded} />
         )}
       </div>
     </PageSection>
   );
 }
 
-function GetAPIKey({ setAPIKey }: { setAPIKey: (apiKey: string) => void }) {
+function GetAPIKey({
+  setAPIKey,
+  isCSVUploaded,
+}: {
+  setAPIKey: (apiKey: string) => void;
+  isCSVUploaded: boolean;
+}) {
   const [APIKeyInput, setAPIKeyInput] = useState("");
 
   return (
@@ -37,7 +48,7 @@ function GetAPIKey({ setAPIKey }: { setAPIKey: (apiKey: string) => void }) {
       />
       <PrimaryButton
         className="self-stretch mt-6"
-        disabled={APIKeyInput === ""}
+        disabled={APIKeyInput === "" || isCSVUploaded === false}
         onClick={() => {
           if (APIKeyInput !== "") {
             setAPIKey(APIKeyInput);
@@ -50,20 +61,30 @@ function GetAPIKey({ setAPIKey }: { setAPIKey: (apiKey: string) => void }) {
   );
 }
 
-function GetAISuggestion({ APIKey }: { APIKey: string }) {
+function GetAISuggestion({
+  APIKey,
+  setCode,
+}: {
+  APIKey: string;
+  setCode: (newCode: string) => void;
+}) {
   const [prompt, setPrompt] = useState("");
 
-  const {
-    call: callOpenAI,
-    response: openAIResponse,
-    loading: openAILoading,
-  } = useOpenAI(APIKey);
+  const { call: callOpenAI, loading: openAILoading } = useOpenAI(APIKey);
+
+  const onClick = async () => {
+    if (!openAILoading) {
+      const newCode = await callOpenAI(prompt);
+      setCode(newCode);
+      setPrompt("");
+    }
+  };
 
   return (
     <div>
       <div className="text-gray-500">Prompt</div>
       <input
-        placeholder="Tell me a joke..."
+        placeholder="Eg. remove the column about the..."
         type="text"
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
@@ -74,20 +95,10 @@ function GetAISuggestion({ APIKey }: { APIKey: string }) {
         className="flex justify-centerself-stretch mt-6"
         disabled={prompt === ""}
         loading={openAILoading}
-        onClick={() => {
-          if (!openAILoading) {
-            callOpenAI(prompt);
-          }
-        }}
+        onClick={onClick}
       >
         Submit
       </PrimaryButton>
-      {openAIResponse && (
-        <div className="w-full">
-          <div className="text-gray-500 mt-8 w-full text-left">Response</div>
-          <div className="text-left break-words">{openAIResponse}</div>
-        </div>
-      )}
     </div>
   );
 }
